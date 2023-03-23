@@ -1,0 +1,14 @@
+html {
+    box-sizing: border-box;
+}
+
+*, ::after, ::before {
+    box-sizing: inherit;
+}
+
+.body {
+    max-width: 1300px;
+    background-color: rgb(245, 245, 243);
+    margin: auto;
+    font-family: 'Noto Serif Lao', serif;
+}
