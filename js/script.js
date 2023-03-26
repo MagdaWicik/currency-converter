@@ -68,6 +68,4 @@ formElement.addEventListener("submit", () => {
 
     let result = amount * course;
 
-    resultElement.innerText = result.toFixed(2);
-});
 
