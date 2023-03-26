@@ -1,71 +1,93 @@
-let formElement = document.querySelector(".js-form");
-let amountElement = document.querySelector(".js-amount");
-let courseElement = document.querySelector(".js-course");
-let resultElement = document.querySelector(".js-result");
-let currencyElement = document.querySelector(".js-currency");
-let exchangeElement = document.querySelector(".js-exchange");
-let calculatedElement = document.querySelector(".js-calculated");
+{
+    const formElement = document.querySelector(".js-form");
+    const amountElement = document.querySelector(".js-amount");
 
-let euro = 4.71;
-let dolar = 4.42;
-let złoty = 1.00;
+    const calculateResult = (currency, exchange, amount) => {
+        const euro = 4.71;
+        const dolar = 4.42;
 
-formElement.addEventListener("input", () => {
+        switch (true) {
+            case currency === "EUR" && exchange === "PLN":
+                return amount * euro;
 
-    let amount = amountElement.value;
-    let currency = currencyElement.value;
-    let exchange = exchangeElement.value;
-    let calculated = calculatedElement.value;
+            case currency === "PLN" && exchange === "EUR":
+                return amount / euro;
 
-    switch (true) {
+            case currency === "EUR" && exchange === "EUR":
+                return amount * 1;
 
-        case currency === "EUR" && exchange === "PLN":
-            calculated = amount * euro;
-            break;
+            case currency === "PLN" && exchange === "PLN":
+                return amount * 1;
 
-        case currency === "PLN" && exchange === "EUR":
-            calculated = amount / euro;
-            break;
+            case currency === "USD" && exchange === "PLN":
+                return amount * dolar;
 
-        case currency === "EUR" && exchange === "EUR":
-            calculated = amount * 1;
-            break;
+            case currency === "PLN" && exchange === "USD":
+                return amount / dolar;
 
-        case currency === "PLN" && exchange === "PLN":
-            calculated = amount * 1;
-            break;
+            case currency === "USD" && exchange === "USD":
+                return amount * 1;
 
-        case currency === "USD" && exchange === "PLN":
-            calculated = amount * dolar;
-            break;
+            case currency === "EUR" && exchange === "USD":
+                return amount * euro / dolar;
 
-        case currency === "PLN" && exchange === "USD":
-            calculated = amount / dolar;
-            break;
+            case currency === "USD" && exchange === "EUR":
+                return amount * dolar / euro;
+        }
+    };
 
-        case currency === "USD" && exchange === "USD":
-            calculated = amount * 1;
-            break;
+    const updateResultText = (calculated) => {
+        const calculatedElement = document.querySelector(".js-calculated");
+        calculatedElement.value = calculated.toFixed(2);
+    };
 
-        case currency === "EUR" && exchange === "USD":
-            calculated = amount * euro / dolar;
-            break;
+    const onFormInput = () => {
+        const currencyElement = document.querySelector(".js-currency");
+        const exchangeElement = document.querySelector(".js-exchange");
 
-        case currency === "USD" && exchange === "EUR":
-            calculated = amount * dolar / euro;
-            break;
+        const amount = amountElement.value;
+        const currency = currencyElement.value;
+        const exchange = exchangeElement.value;
 
-    }
+        let calculated = calculateResult(currency, exchange, amount);
 
-    calculatedElement.value = calculated.toFixed(2);
-});
+        updateResultText(calculated);
+    };
 
-formElement.addEventListener("submit", () => {
-    event.preventDefault();
+    const init = () => {
+        formElement.addEventListener("input", onFormInput);
+    };
 
-    let amount = amountElement.value;
-    let course = courseElement.value;
+    init();
 
-    let result = amount * course;
+    const calculateResultSubmit = (amount, course) => {
+       return amount * course;
+    };
+
+    const updateResultTextSubmit = (result) => {
+        const resultElement = document.querySelector(".js-result");
+        resultElement.innerText = result.toFixed(2);
+    };
+
+    const onFormSubmit = (event) => {
+        event.preventDefault();
+
+        const courseElement = document.querySelector(".js-course");
+
+        const amount = amountElement.value;
+        const course = courseElement.value;
+
+        let result = calculateResultSubmit(amount, course);
+
+        updateResultTextSubmit(result);
+    };
+
+    const initSubmit = () => {
+        formElement.addEventListener("submit", onFormSubmit);
+    };
+
+    initSubmit();
+
+}
 
 
