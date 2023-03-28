@@ -1,7 +1,4 @@
 {
-    const formElement = document.querySelector(".js-form");
-    const amountElement = document.querySelector(".js-amount");
-
     const calculateResult = (currency, exchange, amount) => {
         const euro = 4.71;
         const dolar = 4.42;
@@ -44,6 +41,7 @@
     const onFormInput = () => {
         const currencyElement = document.querySelector(".js-currency");
         const exchangeElement = document.querySelector(".js-exchange");
+        const amountElement = document.querySelector(".js-amount");
 
         const amount = amountElement.value;
         const currency = currencyElement.value;
@@ -54,15 +52,7 @@
         updateResultText(calculated);
     };
 
-    const init = () => {
-        formElement.addEventListener("input", onFormInput);
-    };
-
-    init();
-
-    const calculateResultSubmit = (amount, course) => {
-        return amount * course;
-    };
+    const calculateResultSubmit = (amount, course) => amount * course;
 
     const updateResultTextSubmit = (result) => {
         const resultElement = document.querySelector(".js-result");
@@ -72,6 +62,7 @@
     const onFormSubmit = (event) => {
         event.preventDefault();
 
+        const amountElement = document.querySelector(".js-amount");
         const courseElement = document.querySelector(".js-course");
 
         const amount = amountElement.value;
@@ -82,12 +73,14 @@
         updateResultTextSubmit(result);
     };
 
-    const initSubmit = () => {
+    const init = () => {
+        const formElement = document.querySelector(".js-form");
+
+        formElement.addEventListener("input", onFormInput);
         formElement.addEventListener("submit", onFormSubmit);
     };
 
-    initSubmit();
-
+    init();
 }
 
 
