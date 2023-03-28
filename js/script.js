@@ -61,7 +61,7 @@
     init();
 
     const calculateResultSubmit = (amount, course) => {
-       return amount * course;
+        return amount * course;
     };
 
     const updateResultTextSubmit = (result) => {
